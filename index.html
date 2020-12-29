@@ -64,6 +64,90 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ros-chapter6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/27/ros-chapter6/" class="article-date">
+  <time datetime="2020-12-27T09:29:59.000Z" itemprop="datePublished">2020-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/27/ros-chapter6/">机器人建模与仿真</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="URDF简介"><a href="#URDF简介" class="headerlink" title="URDF简介"></a>URDF简介</h3><p>link标签：刚体部分的<strong>外观</strong>和<strong>物理属性</strong></p>
+<blockquote>
+<p>size,color,shape,inertial matrix</p>
+</blockquote>
+<p>joint标签：机器人关节的<strong>运动学</strong>和<strong>动力学属性</strong></p>
+<blockquote>
+<p> 位置，速度限制</p>
+</blockquote>
+<h3 id="创建URDF模型"><a href="#创建URDF模型" class="headerlink" title="创建URDF模型"></a>创建URDF模型</h3><p>四个文件夹</p>
+<ul>
+<li>urdf：.urdf或者xacro文件</li>
+<li>meshes：存放渲染文件</li>
+<li>launch：运行文件</li>
+<li>config：配置文件</li>
+</ul>
+<h3 id="xacro优化URDF"><a href="#xacro优化URDF" class="headerlink" title="xacro优化URDF"></a>xacro优化URDF</h3><p>首先为URDF模型添加<inertial>和<collision>属性，分别是物理和碰撞属性。</p>
+<p>之后，将.urdf文件改变为.xacro文件，xacro格式里可以</p>
+<ul>
+<li>定义常量</li>
+<li>调用数学公式</li>
+<li>宏定义（可以重复利用代码）</li>
+<li>文件引用（类似C语言的include）</li>
+</ul>
+<p>最后将xacro文件显示在rviz中。这时有两种方法可以显示：</p>
+<ol>
+<li>将xacro文件转换成urdf</li>
+<li>直接解析xacro</li>
+</ol>
+<h3 id="添加传感器"><a href="#添加传感器" class="headerlink" title="添加传感器"></a>添加传感器</h3><p>首先，写一个传感器的xacro文件，如：camera.xacro，kinect.xacro等等</p>
+<p>其次，include这个相机文件</p>
+<p>最后，在mrobot中调用这个组件</p>
+<h3 id="ros-control"><a href="#ros-control" class="headerlink" title="ros_control"></a>ros_control</h3><p>ros_control做了一层硬件抽象层，从而在不接触硬件的情况下，可以实验。</p>
+<p>具体架构看P138 图6-18.</p>
+<p>控制器管理器（Controller Manager）管理每一个控制器</p>
+<p>一个控制器可以控制joint</p>
+<p>控制器和硬件仿真层进行打交道</p>
+<p>而硬件仿真层用write，read方式和真实硬件打交道</p>
+<p><strong>所以，ros_control分出了<code>controller manager</code>, <code>Controller</code>, <code>RobotHW</code>, <code>Hardware Resource</code>等等</strong></p>
+<p>传动系统（Transmission）可以将机器人的关节指令转换成执行器控制信号，每一个需要运动的关节都需要配置相应的传动系统</p>
+<p>还需要设置关节限制 Joint Limit，用urdf和YAML文件配置</p>
+<h3 id="Gazebo-仿真"><a href="#Gazebo-仿真" class="headerlink" title="Gazebo 仿真"></a>Gazebo 仿真</h3><p>机器人模型中添加gazebo属性</p>
+<p>在gazebo中显示机器人模型</p>
+<p>控制机器人在gazebo中运动</p>
+<p>gazebo中摄像头仿真，kinect，激光雷达仿真</p>
+<p>（这章只说了大概，需要看<a href="https://github.com/huchunxu/ros_exploring" target="_blank" rel="noopener">ros_exploring</a>源码，自己实现之后可以懂的更多）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/12/27/ros-chapter6/" data-id="ckj9l2agb00000cukbbhnfpmq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/" rel="tag">ROS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-DecisionTree" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/26/DecisionTree/" class="article-date">
@@ -407,7 +491,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/research/" rel="tag">research</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/" rel="tag">skill</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/" rel="tag">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/research/" rel="tag">research</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/" rel="tag">skill</a></li></ul>
     </div>
   </div>
 
@@ -417,7 +501,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/research/" style="font-size: 20px;">research</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
+      <a href="/tags/ROS/" style="font-size: 10px;">ROS</a> <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/research/" style="font-size: 20px;">research</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
     </div>
   </div>
 
@@ -437,6 +521,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/12/27/ros-chapter6/">机器人建模与仿真</a>
+          </li>
         
           <li>
             <a href="/2020/12/26/DecisionTree/">决策树</a>
